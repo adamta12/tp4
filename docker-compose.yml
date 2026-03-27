@@ -4,7 +4,7 @@ services:
     image: adamta12/flask-api:latest
     ports:
       - "5000:5000"
-    encvironment:
+    environment:
       - DB_HOST=db
       - DB_USER=root
       - DB_PASSWORD=root
@@ -14,17 +14,17 @@ services:
 
   frontend:
     build: ./frontend
-    image: adamta12/frontend-app:latest
+    image: adamta12/nginx-frontend:latest
     ports:
       - "3000:80"
-    depends-on:
+    depends_on:
       - backend
 
   db:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: flaskdb
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=flaskdb
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
